@@ -138,6 +138,8 @@ def format_all(widget_data = None):
 
 @hydra.main(config_path="config", config_name="config")
 def main(cfg: DictConfig):
+    print("Loading config...")
+
     #region Config reading
     version = cfg['application']['version']
     name = cfg['application']['name']
@@ -151,6 +153,8 @@ def main(cfg: DictConfig):
     password = cfg['praw']['password']
     subreddits = cfg['praw']['subreddits']
     #endregion
+    
+    print("Creating reddit client...")
 
     reddit = praw.Reddit(
         client_id = client_id,
@@ -160,8 +164,10 @@ def main(cfg: DictConfig):
         user_agent=f"script:{name}:u/{username}:v{version} (by {author_username} {author_reddit_handle})"
     )
 
+    print("Listening for comments...")
     subreddit = reddit.subreddit("+".join(subreddits))
     for comment in subreddit.stream.comments(skip_existing=True):
+        print("Received comment. Parsing...")
         body = unmark(comment.body)
         reply_type = None
         if body == "!climateclock all":
@@ -212,6 +218,7 @@ def main(cfg: DictConfig):
                 comment.reply(reply)
 
         if reply_type is not None:
+            print("Parsed command, replied.")
             logging.info(f"main: {reply_type}: {comment.permalink}")
 
 
