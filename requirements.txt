@@ -1,0 +1,16 @@
+antlr4-python3-runtime==4.8
+certifi==2021.10.8
+charset-normalizer==2.0.9
+hydra-core==1.1.1
+idna==3.3
+importlib-metadata==4.10.0
+Markdown==3.3.6
+omegaconf==2.1.1
+praw==7.5.0
+prawcore==2.3.0
+PyYAML==6.0
+requests==2.26.0
+update-checker==0.18.0
+urllib3==1.26.7
+websocket-client==1.2.3
+zipp==3.7.0
